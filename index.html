@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國二輔導活動：網路交友【賭分數大冒險】互動卡牌</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800;900&display=swap">
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at top center, #0f172a 0%, #020617 100%);
+      color: #f8fafc;
+      user-select: none;
+    }
+    .shadow-glow-emerald {
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+    .shadow-glow-rose {
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.2);
+    }
+    .transition-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 md:p-6 text-slate-100">
+
+  <!-- Top Navigation (Scoreboard Removed, Scaled Up Fonts) -->
+  <header class="max-w-7xl mx-auto w-full mb-6">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 backdrop-blur-md">
+      
+      <!-- Title & Lesson Info -->
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl md:text-3xl shadow-lg shadow-indigo-500/30 shrink-0">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <div>
+          <span class="bg-indigo-900/80 text-indigo-300 border border-indigo-500/30 text-xs md:text-sm font-bold px-3 py-1 rounded-full">國二輔導活動課</span>
+          <h1 class="text-2xl md:text-3xl font-black text-white tracking-tight mt-1">
+            網路交友【賭分數大冒險】情境討論卡
+          </h1>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-3">
+        <button onclick="hideAllCards()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-5 py-2.5 rounded-xl border border-slate-700 text-sm md:text-base font-bold transition flex items-center gap-2 shadow-md">
+          <i class="fa-solid fa-eye-slash text-amber-400"></i> 一鍵全部蓋牌
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Cards Area -->
+  <main class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-6 my-auto">
+
+    <!-- PROS COLUMN (優點卡牌) -->
+    <div class="space-y-4">
+      <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-2xl p-4 md:p-5 flex items-center justify-between shadow-glow-emerald">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xl md:text-2xl font-black">
+            <i class="fa-solid fa-thumbs-up"></i>
+          </div>
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-emerald-200">網路交友【優點構面】</h2>
+            <p class="text-xs md:text-sm text-emerald-400/90 font-medium">便利性、情緒陪伴與社交拓展</p>
+          </div>
+        </div>
+        <span class="text-xs md:text-sm font-bold bg-emerald-900/80 text-emerald-300 border border-emerald-700/60 px-3.5 py-1.5 rounded-full shrink-0">
+          10分 ~ 50分題
+        </span>
+      </div>
+
+      <div class="space-y-4" id="pros-card-list">
+        <!-- Javascript dynamic cards -->
+      </div>
+    </div>
+
+    <!-- CONS COLUMN (缺點/風險卡牌) -->
+    <div class="space-y-4">
+      <div class="bg-rose-950/40 border border-rose-500/40 rounded-2xl p-4 md:p-5 flex items-center justify-between shadow-glow-rose">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 text-xl md:text-2xl font-black">
+            <i class="fa-solid fa-shield-cat"></i>
+          </div>
+          <div>
+            <h2 class="text-xl md:text-2xl font-black text-rose-200">網路交友【缺點與風險】</h2>
+            <p class="text-xs md:text-sm text-rose-400/90 font-medium">隱私洩漏、身分真實性與心理依賴</p>
+          </div>
+        </div>
+        <span class="text-xs md:text-sm font-bold bg-rose-900/80 text-rose-300 border border-rose-700/60 px-3.5 py-1.5 rounded-full shrink-0">
+          10分 ~ 50分題
+        </span>
+      </div>
+
+      <div class="space-y-4" id="cons-card-list">
+        <!-- Javascript dynamic cards -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Guidance Reflection Footer -->
+  <footer class="max-w-7xl mx-auto w-full mt-6 bg-slate-900/80 border border-slate-800 rounded-2xl p-4 md:p-5 text-sm md:text-base text-slate-300">
+    <div class="flex items-center gap-2 font-bold text-amber-300 mb-2 text-base md:text-lg">
+      <i class="fa-solid fa-chalkboard-user"></i> 輔導活動課堂反思提問引導：
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 mt-2">
+      <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800 leading-relaxed">
+        <span class="font-bold text-amber-400 text-base">1. 需求察覺：</span>「當我們想在網路上找人聊天時，背後滿足了我們現實中的什麼需求？」
+      </div>
+      <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800 leading-relaxed">
+        <span class="font-bold text-sky-400 text-base">2. 邊界感與警覺：</span>「聊天聊得來，就代表對方是可以完全信任的好朋友嗎？」
+      </div>
+      <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800 leading-relaxed">
+        <span class="font-bold text-emerald-400 text-base">3. 自我保護：</span>「在網路互動中，有哪些底線是絕對不能妥協與退讓的？」
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Guidance Class Data - Point-based Cards */
+    const cardData = {
+      pros: [
+        {
+          id: 'p1',
+          label: '10分題',
+          title: '便利性高、不受時空限制',
+          hint: '【生活情境】想找人聊天不用特地出門，半夜隨時發訊息就能交流...',
+          desc: '打破現實時間與地點的限制，提供彈性且即時的溝通管道。'
+        },
+        {
+          id: 'p2',
+          label: '20分題',
+          title: '容貌焦慮低、不需刻意打扮',
+          hint: '【生活情境】在家穿著睡衣、頭髮沒洗也可以順利跟對方相談甚歡...',
+          desc: '無需注重外貌形象即可進行社交，減少同儕間的外貌焦慮與壓力。'
+        },
+        {
+          id: 'p3',
+          label: '30分題',
+          title: '傾訴現實不敢說的秘密與壓力',
+          hint: '【生活情境】小明最近考試受挫又和班上朋友吵架，他戴上耳機打開論壇，對著連長相都沒看過的帳號打字聊了起來……為什麼他在這裡反而比較能放開談心？',
+          desc: '保持距離的半匿名性，成為青春期自我探索與情緒宣洩的窗口。'
+        },
+        {
+          id: 'p4',
+          label: '40分題',
+          title: '擴展社交圈，認識多元背景朋友',
+          hint: '【生活情境】小華對小眾滑板招式與特殊歷史很有興趣，但在班上找不到同好。昨晚他在討論區貼文後，獲得了專業回應與熱烈互動……這滿足了他社交上的什麼需求？',
+          desc: '跨越學校與生活圈限制，接觸多元文化經驗與共通興趣社群。'
+        },
+        {
+          id: 'p5',
+          label: '50分題',
+          title: '掌握對話節奏，有充足時間沉澱思考',
+          hint: '【生活情境】面對面說話容易緊張，但傳訊息可以打好字、反覆修飾後再按送出...',
+          desc: '非即時互動讓對話者擁有主導權，能更冷靜地組織語言與思考表達。'
+        }
+      ],
+      cons: [
+        {
+          id: 'c1',
+          label: '10分題',
+          title: '身分真實性難以驗證',
+          hint: '【生活情境】對方頭貼是帥哥、自稱15歲國中生，但螢幕背後可能是別有居心的大人...',
+          desc: '網路資訊與照片極易偽造，難以確認對方的真實身分與動機。'
+        },
+        {
+          id: 'c2',
+          label: '20分題',
+          title: '個資與私密照片外洩風險',
+          hint: '【生活情境】小美為了證明自己的國中生身份，順手拍下穿著校服的自拍與住家門口照傳給網友，沒想到隔天卻在匿名論壇看到自己的照片……她忽視了什麼危機？',
+          desc: '數位足跡難以完全刪除，私密資訊容易遭到惡意散播或二次利用。'
+        },
+        {
+          id: 'c3',
+          label: '30分題',
+          title: '過度依賴與生活失衡',
+          hint: '【生活情境】上課一直想看手機有沒有訊息，晚上聊到深夜影響隔天精神...',
+          desc: '過度依賴虛擬社群即時回應，影響現實課業學習與健康生活作息。'
+        },
+        {
+          id: 'c4',
+          label: '40分題',
+          title: '警覺心下降，誤以為深入了解對方',
+          hint: '【生活情境】因為每天聊天聊了兩個月，就覺得對方是好人，答應單獨私下見面...',
+          desc: '頻繁互動容易讓人建立虛假的信任感，忽略潛在的危險與風險界線。'
+        },
+        {
+          id: 'c5',
+          label: '50分題',
+          title: '認知偏誤與完美形象投射',
+          hint: '【生活情境】網友只說了一句安慰的話，自己就在腦海中想像對方是無微不至的完美對象...',
+          desc: '將自己理想中的期待投射在文字上，產生過度美化與不切實際的浪漫想像。'
+        }
+      ]
+    };
+
+    function renderCards() {
+      const prosList = document.getElementById('pros-card-list');
+      const consList = document.getElementById('cons-card-list');
+
+      function buildCardHTML(item, isPro) {
+        const badgeBg = isPro ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+        const btnAnswerBg = isPro ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-rose-600 hover:bg-rose-500';
+
+        return `
+          <div class="bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-2xl p-4 md:p-5 transition-card shadow-lg flex flex-col gap-3.5">
+            
+            <!-- Card Top Bar (Points Tag & Controls) -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <div class="flex items-center gap-3">
+                <span class="px-3.5 py-1.5 rounded-xl font-black text-base md:text-lg border ${badgeBg}">
+                  <i class="fa-solid fa-star text-amber-400 mr-1.5"></i>${item.label}
+                </span>
+                <span class="text-xs md:text-sm text-slate-400 font-bold">[ 卡牌 #${item.id} ]</span>
+              </div>
+
+              <!-- Action Controls -->
+              <div class="flex items-center gap-2.5">
+                <button onclick="toggleCardSection('${item.id}', 'hint')" class="bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-sm md:text-base px-4 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow">
+                  <i class="fa-solid fa-lightbulb"></i> 翻提示
+                </button>
+                <button onclick="toggleCardSection('${item.id}', 'answer')" class="${btnAnswerBg} text-white text-sm md:text-base px-4.5 py-2 rounded-xl font-bold transition shadow-md flex items-center gap-1.5">
+                  <i class="fa-solid fa-key"></i> 公布解答
+                </button>
+              </div>
+            </div>
+
+            <!-- Card Hint Section (Hidden by default) -->
+            <div id="hint-${item.id}" class="hidden bg-amber-950/30 border border-amber-500/30 rounded-xl p-4 text-amber-200 text-base md:text-lg font-medium leading-relaxed">
+              <div class="text-xs md:text-sm font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-comment-dots"></i> 學生思考情境引導：
+              </div>
+              ${item.hint}
+            </div>
+
+            <!-- Card Answer Section (Hidden by default) -->
+            <div id="answer-${item.id}" class="hidden bg-slate-950/80 border border-indigo-500/40 rounded-xl p-4 text-slate-100 text-base md:text-lg animate-fade-in">
+              <div class="text-xs md:text-sm font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check"></i> 輔導課核心概念解答：
+              </div>
+              <div class="font-black text-lg md:text-xl text-white mb-1">${item.title}</div>
+              <div class="text-slate-200 leading-relaxed text-base md:text-lg">${item.desc}</div>
+            </div>
+
+            <!-- Default Placeholder when both hidden -->
+            <div id="placeholder-${item.id}" class="text-sm md:text-base text-slate-500 italic py-1.5 text-center">
+              ( 請點擊上方「翻提示」進行討論，或直接「公布解答」 )
+            </div>
+          </div>
+        `;
+      }
+
+      prosList.innerHTML = cardData.pros.map(c => buildCardHTML(c, true)).join('');
+      consList.innerHTML = cardData.cons.map(c => buildCardHTML(c, false)).join('');
+    }
+
+    function toggleCardSection(id, type) {
+      const hintEl = document.getElementById(`hint-${id}`);
+      const answerEl = document.getElementById(`answer-${id}`);
+      const placeholderEl = document.getElementById(`placeholder-${id}`);
+
+      if (type === 'hint') {
+        hintEl.classList.toggle('hidden');
+      } else if (type === 'answer') {
+        answerEl.classList.toggle('hidden');
+      }
+
+      const isHintHidden = hintEl.classList.contains('hidden');
+      const isAnswerHidden = answerEl.classList.contains('hidden');
+
+      if (isHintHidden && isAnswerHidden) {
+        placeholderEl.classList.remove('hidden');
+      } else {
+        placeholderEl.classList.add('hidden');
+      }
+    }
+
+    function hideAllCards() {
+      [...cardData.pros, ...cardData.cons].forEach(c => {
+        document.getElementById(`hint-${c.id}`).classList.add('hidden');
+        document.getElementById(`answer-${c.id}`).classList.add('hidden');
+        document.getElementById(`placeholder-${c.id}`).classList.remove('hidden');
+      });
+    }
+
+    window.onload = function() {
+      renderCards();
+    };
+  </script>
+</body>
+</html>
